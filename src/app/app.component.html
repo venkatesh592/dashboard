@@ -1,3 +1,9 @@
-<h1>
-  {{title}}
-</h1>
+<img-cropper #cropper [image]="data" [settings]="cropperSettings" [(cropPosition)]="cropPosition" ></img-cropper>
+<br>
+<span class="result rounded" *ngIf="data.image" >
+    <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+</span>
+
+
+
+<button value="Add" name="Add" (click)="capture()" >Add</button>
