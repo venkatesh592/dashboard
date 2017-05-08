@@ -261,25 +261,32 @@ export class ImageCropperComponent implements AfterViewInit, OnChanges {
         });
     }
     public captureRectangle(){
-        let canvas:HTMLCanvasElement = this.canvasCopy.nativeElement;
-        
-        this.renderer.setElementAttribute(canvas, 'class', this.settings.cropperClass);
 
-        if (!this.settings.dynamicSizing) {
-            this.renderer.setElementAttribute(canvas, 'width', this.settings.canvasWidth.toString());
-            this.renderer.setElementAttribute(canvas, 'height', this.settings.canvasHeight.toString());
-        } else {
-            window.addEventListener('resize', () => {
-                this.settings.canvasWidth = canvas.offsetWidth;
-                this.settings.canvasHeight = canvas.offsetHeight;
-                this.cropper.customResizeCanvas(canvas,canvas.offsetWidth, canvas.offsetHeight, true);
-            });
+
+        if (this.cropper) {
+            this.cropper.drawRectangleOnImage()
         }
 
-        if (!this.cropper) {
-            this.cropper = new ImageCropper(this.settings);
-        }        
-        this.cropper.customPrepare(canvas);
-        console.log(this.cropper.getCropBounds())
+
+        // let canvas:HTMLCanvasElement = this.canvasCopy.nativeElement;
+        
+        // this.renderer.setElementAttribute(canvas, 'class', this.settings.cropperClass);
+
+        // if (!this.settings.dynamicSizing) {
+        //     this.renderer.setElementAttribute(canvas, 'width', this.settings.canvasWidth.toString());
+        //     this.renderer.setElementAttribute(canvas, 'height', this.settings.canvasHeight.toString());
+        // } else {
+        //     window.addEventListener('resize', () => {
+        //         this.settings.canvasWidth = canvas.offsetWidth;
+        //         this.settings.canvasHeight = canvas.offsetHeight;
+        //         this.cropper.customResizeCanvas(canvas,canvas.offsetWidth, canvas.offsetHeight, true);
+        //     });
+        // }
+
+        // if (!this.cropper) {
+        //     this.cropper = new ImageCropper(this.settings);
+        // }        
+        // this.cropper.customPrepare(canvas);
+        // console.log(this.cropper.getCropBounds())
     }    
 }

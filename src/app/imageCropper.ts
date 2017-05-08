@@ -18,6 +18,7 @@ export class ImageCropper extends ImageCropperModel {
     constructor(cropperSettings:CropperSettings) {
         super();
 
+
         let x:number = 0;
         let y:number = 0;
         let width:number = cropperSettings.width;
@@ -167,7 +168,7 @@ export class ImageCropper extends ImageCropperModel {
         this.buffer.height = canvas.height;
         this.canvas = canvas;
         this.ctx = <CanvasRenderingContext2D> this.canvas.getContext('2d');
-
+        
         this.draw(this.ctx);
     }
 
@@ -251,13 +252,18 @@ export class ImageCropper extends ImageCropperModel {
                 ctx.drawImage(this.buffer, bounds.left, bounds.top, Math.max(bounds.width, 1),
                     Math.max(bounds.height, 1), bounds.left, bounds.top, bounds.width, bounds.height);
                 ctx.strokeRect(bounds.left, bounds.top, bounds.width, bounds.height);
-            } else {
+            
+        } else {
                 ctx.beginPath();
                 ctx.arc(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2, bounds.width / 2, 0,
                     Math.PI * 2, true);
                 ctx.closePath();
                 ctx.stroke();
             }
+
+
+
+
 
             let marker:CornerMarker;
 
@@ -1179,5 +1185,14 @@ export class ImageCropper extends ImageCropperModel {
             this.isMouseDown = false;
             this.handleRelease(new CropTouch(0, 0, 0));
         }
+    }
+
+
+    drawRectangleOnImage(){
+                let dataUrl = this.canvas.toDataURL();
+                let croppppImage = document.createElement('img');
+                croppppImage.src = dataUrl;
+
+                this.srcImage = croppppImage;
     }
 }

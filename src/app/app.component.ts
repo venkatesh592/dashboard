@@ -31,8 +31,8 @@ export class AppComponent extends Type {
         this.cropperSettings.height = 250;
         this.cropperSettings.keepAspect = true;
 
-        this.cropperSettings.croppedWidth = 200;
-        this.cropperSettings.croppedHeight = 250;
+        this.cropperSettings.croppedWidth = 300;
+        this.cropperSettings.croppedHeight = 350;
 
         this.cropperSettings.canvasWidth = 500;
         this.cropperSettings.canvasHeight = 300;
@@ -44,7 +44,7 @@ export class AppComponent extends Type {
         this.cropperSettings.preserveSize = true;
         this.cropperSettings.minWithRelativeToResolution = false;
 
-        this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(56,255,255,1)';
         this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
         this.cropperSettings.noFileInput = false;
 
@@ -78,17 +78,17 @@ export class AppComponent extends Type {
         this.data ={};
 
 
-        this.onChange = ($event:any) => {
-            var image:any = new Image();
-            var file:File = $event.target.files[0];
-            var myReader:FileReader = new FileReader();
-            myReader.addEventListener('loadend', (loadEvent:any) => {
-                image.src = loadEvent.target.result;
-                this.cropper.setImage(image);
-            });
+        // this.onChange = ($event:any) => {
+        //     var image:any = new Image();
+        //     var file:File = $event.target.files[0];
+        //     var myReader:FileReader = new FileReader();
+        //     myReader.addEventListener('loadend', (loadEvent:any) => {
+        //         image.src = loadEvent.target.result;
+        //         this.cropper.setImage(image);
+        //     });
 
-            myReader.readAsDataURL(file);
-        }
+        //     myReader.readAsDataURL(file);
+        // }
 
         this.updateCropPosition = () => {
             this.cropper.captureRectangle();
