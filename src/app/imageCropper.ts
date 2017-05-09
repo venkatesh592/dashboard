@@ -15,9 +15,14 @@ export class ImageCropper extends ImageCropperModel {
     private cropperSettings:CropperSettings;
     private previousDistance:number;
 
+    private canvasBeforeContext:CanvasRenderingContext2D;
+    private canvasBefore:HTMLCanvasElement;
+    private bounds: Bounds[] = [];
+
+    
+
     constructor(cropperSettings:CropperSettings) {
         super();
-
 
         let x:number = 0;
         let y:number = 0;
@@ -247,13 +252,20 @@ export class ImageCropper extends ImageCropperModel {
             ctx.strokeStyle = this.cropperSettings.cropperDrawSettings.strokeColor; // 'rgba(255,228,0,1)';
 
             if (!this.cropperSettings.rounded) {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.0)';
                 ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
                 ctx.drawImage(this.buffer, bounds.left, bounds.top, Math.max(bounds.width, 1),
                     Math.max(bounds.height, 1), bounds.left, bounds.top, bounds.width, bounds.height);
+                
+                //written by me(Draw selected rectangles)
+                if(this.bounds.length > 0){
+                    for(let b of this.bounds)
+                        ctx.strokeRect(b.left, b.top, b.width, b.height);
+                }
                 ctx.strokeRect(bounds.left, bounds.top, bounds.width, bounds.height);
+                
             
-        } else {
+            } else {
                 ctx.beginPath();
                 ctx.arc(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2, bounds.width / 2, 0,
                     Math.PI * 2, true);
@@ -261,8 +273,12 @@ export class ImageCropper extends ImageCropperModel {
                 ctx.stroke();
             }
 
-
-
+            //written by me(Copying the canvas to canvas
+            // this.canvasBefore = document.createElement('canvas');
+            // this.canvasBefore.width = this.canvas.width;
+            // this.canvasBefore.height = this.canvas.height;
+            // this.canvasBeforeContext = this.canvasBefore.getContext('2d');
+            // this.canvasBeforeContext.drawImage(this.canvas, 0, 0);
 
 
             let marker:CornerMarker;
@@ -271,13 +287,14 @@ export class ImageCropper extends ImageCropperModel {
                 marker = this.markers[i];
                 marker.draw(ctx);
             }
-            this.center.draw(ctx);
-        } else {
+                this.center.draw(ctx);
+            } else {
             
-            ctx.fillStyle = 'rgba(192,192,192,1)';
-            ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        }
+                ctx.fillStyle = 'rgba(192,192,192,1)';
+                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            }
     }
+
 
 
     public customDraw(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):void {
@@ -1189,10 +1206,15 @@ export class ImageCropper extends ImageCropperModel {
 
 
     drawRectangleOnImage(){
-                let dataUrl = this.canvas.toDataURL();
-                let croppppImage = document.createElement('img');
-                croppppImage.src = dataUrl;
+        this.bounds.push(this.getBounds())
 
-                this.srcImage = croppppImage;
+        // this.getCropBounds();
+        console.log("getCropBounds",this.getBounds())
+        console.log("getBounds",this.getBounds())
+        // console.log(this.bounds)
+        // let dataUrl = this.canvasBefore.toDataURL();
+        // let croppppImage = document.createElement('img');
+        // croppppImage.src = dataUrl;
+        // this.srcImage = croppppImage;
     }
 }

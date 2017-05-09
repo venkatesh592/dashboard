@@ -18,17 +18,13 @@ import {CropPosition} from './model/cropPosition';
                   (touchmove)="onTouchMove($event)"
                   (touchend)="onTouchEnd($event)"
                   (touchstart)="onTouchStart($event)">
-          </canvas>
-
-          <canvas #canvasCopy>
-          </canvas>          
+          </canvas>        
         </span>
       `
 })
 export class ImageCropperComponent implements AfterViewInit, OnChanges {
 
     @ViewChild('cropcanvas', undefined) cropcanvas:ElementRef;
-    @ViewChild('canvasCopy', undefined) canvasCopy:ElementRef;
 
     @Input('settings') public settings:CropperSettings;
     @Input('image') public image:any;

@@ -49,7 +49,7 @@ export class AppComponent extends Type {
         this.cropperSettings.noFileInput = false;
 
         this.cropperSettings.resampleFn = (buffer:HTMLCanvasElement) => {
-
+            // console.log("resampleFn",buffer)
             var canvasContext = buffer.getContext('2d');
             var imgW = buffer.width;
             var imgH = buffer.height;

@@ -56,7 +56,7 @@ export class DragMarker extends Handle {
         arr.push(PointPool.instance.borrow(-maxLength + arrowLength, connectorThroat / 2));
         arr.push(PointPool.instance.borrow(-connectorThroat / 2, connectorThroat / 2));
     }
-
+    //center of the rectangle image drawing
     public drawIcon(ctx: CanvasRenderingContext2D, points: Array<Point>) {
         ctx.beginPath();
         ctx.moveTo(points[0].x + this.position.x, points[0].y + this.position.y);
